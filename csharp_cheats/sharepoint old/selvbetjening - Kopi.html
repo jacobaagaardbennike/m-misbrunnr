@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<html lang="en" xmlns:mso="urn:schemas-microsoft-com:office:office" xmlns:msdt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882">
+<head>
+
+ <script type="text/javascript" 
+	src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+	<script type="text/javascript" src="/ajax/4.0/1/MicrosoftAjax.js"></script>
+ <script type="text/javascript">
+
+ 	$(document).ready(function () {
+ 		
+ 		$("#favdivCreateNewFavoriteButton").hide();
+ 		$("#favdivCreateNewFavoriteContent").hide();
+ 		$("#favdivEditFavoriteButton").hide();
+ 		
+ 		
+ 		$("#btnCreateNewFav").click(function () {
+ 			$("#favdivContent").hide();
+ 			$("#favdivCreateNewFavoriteButton").hide();
+ 			$("#favdivCreateNewFavoriteContent").show();
+		});
+ 	
+		$("#btnSaveNewFav").click(function () {
+			SP.UI.Status.removeAllStatus(true);
+			var title = $("#txbTitle").val();
+			var link = $("#txbLink").val();
+
+			if(title || link)
+			{
+				createFavorite(title, link);
+			}
+			else
+			{
+				var sId = SP.UI.Status.addStatus("Indtast venligst informationer i begge felter.");
+              	SP.UI.Status.setStatusPriColor(sId, 'red');
+
+			}
+			
+			
+		});
+		
+		$("#btnShowMyFavorites").click(function () {
+			SP.UI.Status.removeAllStatus(true);
+			getFavorites();
+
+		});
+		
+		$("#btnEditFavorites").click(function () {
+			$("#favdivContent").show();
+ 			$("#favdivCreateNewFavoriteButton").show();
+ 			$("#favdivCreateNewFavoriteContent").hide();
+
+			getFavoritesForEdit();
+
+		});
+		
+		$("#btnPrograms").click(function () {
+			SP.UI.Status.removeAllStatus(true);
+			$("#favdivCreateNewFavoriteButton").hide();
+ 			getFavoritePrograms() ;
+		});
+		
+		$("#btnSelvbetjening").click(function () {
+			SP.UI.Status.removeAllStatus(true);
+			$("#favdivCreateNewFavoriteButton").hide();
+ 			getSelvbetjening() ;
+		});
+
+
+	});
+	
+		
+	function createFavorite(title, link)
+	{
+	
+		var context = new SP.ClientContext.get_current();
+		this.website = context.get_web();
+		this.currentUser = website.get_currentUser();
+		context.load(currentUser);
+		context.executeQueryAsync(
+			Function.createDelegate(this, function(){createFavoriteSucess(title, link)}), 
+			Function.createDelegate(this, this.findUserFailure));
+	}
+	
+	function createFavoriteSucess(title, link) {
+				
+		var userLoginName = currentUser.get_loginName();
+		var adName = userLoginName.substr(userLoginName.length -6);
+		
+		var entry = {};
+		entry.Title = title;
+		entry.Link = link;
+		entry.User = adName;
+		
+		
+				
+		var strUrl = "http://medarbejderportalen/_vti_bin/Listdata.svc/SelvbetjeningFavoritter?$filter=User%20eq%27" + adName+ "%27";
+		
+		$.getJSON(strUrl, function(data) {
+			
+			var counter = 0;		
+			$.each(data.d.results, function(index, item) {
+				counter = counter + 1;
+			});
+			
+			if(counter < 10) {
+				$.ajax({
+					url: "http://medarbejderportalen/_vti_bin/Listdata.svc/SelvbetjeningFavoritter",
+					type: "POST",
+					contentType: "application/json;odata=verbose",
+					data: JSON.stringify(entry),
+					headers: {
+						"Accept": "application/json;odata=verbose",
+						
+						"X-RequestDigest": $("#__REQUESTDIGEST").val()
+					},
+					success: function(data) {
+						$("#txbTitle").val("");
+						$("#txbLink").val("");
+						getFavorites();
+						
+					},
+					error: function(data) {
+						SP.UI.Status.removeAllStatus(true);
+             			var sId = SP.UI.Status.addStatus("Der gik desværre noget galt.");
+             			SP.UI.Status.setStatusPriColor(sId, 'yellow');
+
+					}
+				});
+			}
+			else {
+				SP.UI.Status.removeAllStatus(true);
+             	var sId = SP.UI.Status.addStatus("Du kan maksimalt have seks favoritter.");
+              	SP.UI.Status.setStatusPriColor(sId, 'red');
+              	getFavoritesForEdit();
+			}
+			
+		});
+	}
+	
+	function getFavorites()
+	{
+	
+		$("#favdivCreateNewFavoriteContent").hide();
+		$("#favdivCreateNewFavoriteButton").hide();
+		$("#favdivContent").show();
+
+	
+		var context = new SP.ClientContext.get_current();
+		this.website = context.get_web();
+		this.currentUser = website.get_currentUser();
+		context.load(currentUser);
+		context.executeQueryAsync(
+			Function.createDelegate(this, this.getFavoritesSuccess), 
+			Function.createDelegate(this, this.findUserFailure));
+	}
+
+	function getFavoritesSuccess() {
+		
+		var userLoginName = currentUser.get_loginName();
+		var adName = userLoginName.substr(userLoginName.length -6);
+		
+		var strUrl = "http://medarbejderportalen/_vti_bin/Listdata.svc/SelvbetjeningFavoritter?$filter=User%20eq%27" + adName+ "%27";
+		
+		$.getJSON(strUrl, function(data) {
+			
+			var html = "<ul>";
+			
+			$.each(data.d.results, function(index, item) {
+				html = html + "<li><a href='"+item.Link+"' target='_blank'>"+item.Title+"</a></li>";
+			});
+			
+			html = html + "</ul>";
+			$('#favdivContent').empty();
+			$('#favdivContent').append($(html));			
+			$("#favdivEditFavoriteButton").show();
+		});
+	}
+	
+	function getFavoritesForEdit()
+	{
+		$("#favdivEditFavoriteButton").hide();
+		$("#favdivCreateNewFavoriteContent").hide();
+		$("#favdivCreateNewFavoriteButton").show();
+		$("#favdivContent").show();
+		
+		var context = new SP.ClientContext.get_current();
+		this.website = context.get_web();
+		this.currentUser = website.get_currentUser();
+		context.load(currentUser);
+		context.executeQueryAsync(
+			Function.createDelegate(this, this.getFavoritesForEditSuccess), 
+			Function.createDelegate(this, this.findUserFailure));
+	}
+
+	function getFavoritesForEditSuccess() {
+		
+		var userLoginName = currentUser.get_loginName();
+		var adName = userLoginName.substr(userLoginName.length -6);
+		
+		var strUrl = "http://medarbejderportalen/_vti_bin/Listdata.svc/SelvbetjeningFavoritter?$filter=User%20eq%27" + adName+ "%27";
+		
+		$.getJSON(strUrl, function(data) {
+		
+			var html = "<ul>";
+			
+			$.each(data.d.results, function(index, item) {
+				html = html + "<li><a href='"+item.Link+"' target='_blank'>"+item.Title+"</a> - <a  onclick='deleteFavById("+item.Id+")' style='CURSOR: pointer;text-decoration: underline'>Slet</a></li>";
+			});
+			
+			html = html + "</ul>";
+			$('#favdivContent').empty();
+			$('#favdivContent').append($(html));
+		});
+	}
+	
+	
+	function deleteFavById(id)
+	{
+		SP.UI.Status.removeAllStatus(true);
+		
+      	$.ajax({
+            url: "http://medarbejderportalen/_vti_bin/Listdata.svc/SelvbetjeningFavoritter(" + id + ")",
+            type: "POST",
+            headers: {
+                "Accept": "application/json;odata=verbose",
+                "X-Http-Method": "DELETE",
+                "If-Match": "*"
+            },
+            success: function (data) {
+                getFavoritesForEdit();
+            },
+            error: function (data) {
+                alert("Der gik desværre noget galt.");
+            }
+        });	
+	
+	}
+	
+	function getFavoritePrograms() 
+	{
+		$("#favdivCreateNewFavoriteContent").hide();
+ 		$("#favdivEditFavoriteButton").hide();
+	
+		var htmlTest = '<ul>'+
+						'<li><a title="BB-Journal" style="CURSOR: pointer;text-decoration: underline" onclick="runBBJournal()" target="_blank">BB-Journal</a></li>'+
+						'<li><a title="NetGIS er en web-baseret løsning til sagsbehandler i kommunen til at søg/finde et meget bred udvalg af kortdata." href="http://netgis/" target="_blank">Netgis</a></li>'+
+						'<li><a title="Se din mail og kalender i Outlook" style="CURSOR: pointer;text-decoration: underline" onclick="runOutlook()" target="_blank">Outlook - internt</a></li>'+
+						'<li><a title="Se din mail og kalender i Outlook" href="https://outlook.office365.com" target="_blank">Outlook - hjemmefra</a></li>'+
+						'<li><a title="Skype telefongruppe " href="https://sfbwebint.skb.local/RgsClients/Tab.aspx" target="_blank">Skype telefongruppe</a></li>'+
+						'<li><a title="Åbn Speedadmin" href="https://ska.speedadmin.dk" target="_blank">Speedadmin</a></li>'+
+						'</ul>';
+		$('#favdivContent').empty();
+		$('#favdivContent').append($(htmlTest));
+	}
+	
+	function getSelvbetjening() 
+	{
+		$("#favdivCreateNewFavoriteContent").hide();
+ 		$("#favdivEditFavoriteButton").hide();
+	
+		var htmlTest = '<ul>'+
+						'<li><a title="Information om AskCody" href="https://dreambroker.com/channel/dg5sbd34/" target="_blank">AskCody</a></li>'+
+						'<li><a title="åben eIndberetning" style="CURSOR: pointer;text-decoration: underline" onclick="runeIndberetning()" target="_blank">Kørsels Indberetning</a></li>'+
+						'<li><a title="åben eIndberetning" style="CURSOR: pointer;text-decoration: underline" onclick="runeIndberetningFerie()" target="_blank">Ferie Indberetning</a></li>'+
+						//'<li><a title="åben eIndberetning i chrome" href="http://eindberetning.skb.local/#/" target="_blank">eIndberetning - Chrome</a></li>'+
+						'<li><a title="Klik og book feriebolig hos Feriefonden" href="/mit-skanderborg/feriefonden/Sider/default.aspx" target="_blank">Feriebolig - book</a></li>'+
+						'<li><a title="Hvis du har glemt pinkoden til dit fælled medarbejderkort, kan du modtage den per mail her." href="/viden-og-vaerktoejer/av/it/Selvbetjening/Sider/F%C3%A6lled-medarbejderkort---glemt-pinkode.aspx" target="_blank">Fælled medarbejderkort - glemt pinkode</a></li>'+
+						'<li><a title="Klik og opret en opgave hos IT Support" href="http://syvnitretten" target="_blank">IT Support - opret en opgave</a></li>'+
+						'<li><a title="Bestil engangskode til KMD Rollebaseret indgang " href="http://portal-k1-nc-22.kmd.dk/webdynpro/dispatcher/local/PasswordSelfService/PasswordSelfService" target="_blank">KMD RI/OPUS - bestil engangskode</a></li>'+
+						'<li><a title="Bestil ny IT bruger " href="https://adusercreation.skb.local/Views/CreateUser.aspx" target="_blank">Bestil ny IT bruger</a></li>'+
+						//'<li><a title="Bestil engangskode til de øvrige KMD Systemer" href="http://medarbejderportalen/viden-og-vaerktoejer/av/it/it-systemer/Sider/Nulstil-kodeord-til-KMD.aspx" target="_blank">Bestil engangskode til øvrige KMD Systemer</a></li>'+
+						'</ul>';
+		$('#favdivContent').empty();
+		$('#favdivContent').append($(htmlTest));
+	}
+
+	
+	function findUserFailure(sender, args)
+	{
+		alert('request failed ' + args.get_message() + '\n'+ args.get_stackTrace());
+	}
+	
+	function runBBJournal()
+	{
+		var shell = new ActiveXObject("WScript.shell");shell.CurrentDirectory = "C:\\Program Files\\bbsoft\\journal";shell.run("\"C:\\Program Files\\bbsoft\\journal\\bbj6sql.exe");
+	}
+	
+	function runOutlook()
+	{
+		new ActiveXObject("WScript.Shell").run("outlook.exe");
+	}
+	
+	function runeIndberetning()
+	{
+		var isIE = /*@cc_on!@*/false || !!document.documentMode;
+		
+		if(isIE) {
+			new ActiveXObject("WScript.Shell").run('"chrome.exe" https://eindberetning.skb.local');
+		}
+		else {
+			var win = window.open("https://eindberetning.skb.local/#/", '_blank');
+  			win.focus();
+		}
+	}
+	
+	function runeIndberetningFerie()
+	{
+		var isIE = /*@cc_on!@*/false || !!document.documentMode;
+		
+		if(isIE) {
+			new ActiveXObject("WScript.Shell").run('"chrome.exe" https://ferieindberetning.skb.local');
+		}
+		else {
+			var win = window.open("https://ferieindberetning.skb.local/#/", '_blank');
+  			win.focus();
+		}
+	}
+		
+</script>
+
+<style type="text/css">
+.favButton {
+    background:none!important;
+     border:none; 
+     padding:0!important;
+    
+    /*optional*/
+    font-family:arial,sans-serif; /*input has OS specific font-family*/
+     color:#fff;
+     text-decoration:underline;
+     cursor:pointer;
+}     
+     
+     
+  ul {
+   list-style: none;
+   margin: 1em 0;
+   padding: 0; 
+}
+ul li {
+   font-weight: normal;
+   margin: 0;
+   padding: 3px 10px 5px 20px;
+   border: 0px;
+   
+}
+ul li:hover {
+   background-color: #690041; 
+}
+     
+
+</style>
+
+<!--[if gte mso 9]><xml>
+<mso:CustomDocumentProperties>
+<mso:ItemRetentionFormula msdt:dt="string"></mso:ItemRetentionFormula>
+<mso:_dlc_policyId msdt:dt="string">0x0101</mso:_dlc_policyId>
+<mso:TaxCatchAll msdt:dt="string"></mso:TaxCatchAll>
+	<mso:ContentTypeId msdt:dt="string">0x0101004CB5F7095197F644ACE4387E1A3B24A0</mso:ContentTypeId><mso:ContentType msdt:dt="string">Dokument</mso:ContentType><mso:PublishingContact msdt:dt="string"></mso:PublishingContact><mso:PortalDepartment msdt:dt="string"></mso:PortalDepartment><mso:Approval_x0020_Level msdt:dt="string"></mso:Approval_x0020_Level><mso:Categories msdt:dt="string"></mso:Categories><mso:Assigned_x0020_To msdt:dt="string"></mso:Assigned_x0020_To></mso:CustomDocumentProperties></xml><![endif]-->
+<title></title></head>
+<body>
+<div id="favdivMenu"
+<p>
+<input id="btnShowMyFavorites" type="button" class="favButton" value="Favoritter"></input>
+<input id="btnSelvbetjening" type="button" class="favButton" value="Selvbetjening"></input>
+<input id="btnPrograms" type="button" class="favButton" value="Programmer"></input>
+</p>
+</div>
+	<div id="favdivContent">
+	</div>
+	<div id="favdivCreateNewFavoriteButton">
+	<p>
+		<input id="btnCreateNewFav" type="button" class="favButton" value="Opret ny favorit (max 10)"></input>
+	</p>
+	</div>
+	<div id="favdivCreateNewFavoriteContent">
+	<p>
+		<label><b>Opret ny favorit link</b></label>
+	</p>
+	<p>
+		<label><b>Beskrivelse</b></label>
+		<br />
+		<label><i>(Dette er teksten, der vises i din favorit menu.)</i></label>
+		<br />
+		<input type="text" id="txbTitle"></input>
+	</p>
+	<p>
+		<label><b>Linket til din favorit</b></label>
+		<br />
+		<label><i>(Indtast en hel URL med http:// og eventuelt www.)</i></label>
+		<br />
+		<input type="text" value="http://" id="txbLink"></input>
+	</p>
+	<p>
+		<input id="btnSaveNewFav" type="button" class="favButton" value="Gem favorit"></input>
+	</p>
+	</div>
+	<div id="favdivEditFavoriteButton">
+	<p>
+		<input id="btnEditFavorites" type="button" class="favButton" value="Rediger dine favoritter"></input>
+	</p>
+	</div>
+	
+</body>
+</html>
