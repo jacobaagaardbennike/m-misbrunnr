@@ -1,0 +1,110 @@
+<mxfile host="app.diagrams.net" modified="2022-03-25T09:58:53.594Z" agent="5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.0.4844.82 Safari/537.36" etag="yIsEz48Nc1TL6ZHXF-wa" version="17.2.2" type="github">
+  <diagram id="mYCVvnoqSooHS_Cqvcj3" name="Page-1">
+    <mxGraphModel dx="1550" dy="835" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="dqSc_5AiH_0_V2ETggPR-12" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="dqSc_5AiH_0_V2ETggPR-1" target="dqSc_5AiH_0_V2ETggPR-3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="dqSc_5AiH_0_V2ETggPR-62" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="dqSc_5AiH_0_V2ETggPR-1" target="dqSc_5AiH_0_V2ETggPR-3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="dqSc_5AiH_0_V2ETggPR-1" value="Everyone" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;" vertex="1" parent="1">
+          <mxGeometry x="235" y="54" width="30" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="dqSc_5AiH_0_V2ETggPR-2" value="I want DATA!" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="260" y="34" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="dqSc_5AiH_0_V2ETggPR-18" value="Yes" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="dqSc_5AiH_0_V2ETggPR-3" target="dqSc_5AiH_0_V2ETggPR-17">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="dqSc_5AiH_0_V2ETggPR-53" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="dqSc_5AiH_0_V2ETggPR-3" target="dqSc_5AiH_0_V2ETggPR-52">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="dqSc_5AiH_0_V2ETggPR-56" value="No" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="dqSc_5AiH_0_V2ETggPR-53">
+          <mxGeometry x="-0.0757" y="-1" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="dqSc_5AiH_0_V2ETggPR-3" value="Will you follow the rules?" style="rhombus;whiteSpace=wrap;html=1;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="205" y="170" width="90" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="dqSc_5AiH_0_V2ETggPR-16" value="DB" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;" vertex="1" parent="1">
+          <mxGeometry x="369" y="600" width="70" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="dqSc_5AiH_0_V2ETggPR-38" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="dqSc_5AiH_0_V2ETggPR-17" target="dqSc_5AiH_0_V2ETggPR-36">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="dqSc_5AiH_0_V2ETggPR-47" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="dqSc_5AiH_0_V2ETggPR-17" target="dqSc_5AiH_0_V2ETggPR-41">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="dqSc_5AiH_0_V2ETggPR-48" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="dqSc_5AiH_0_V2ETggPR-17" target="dqSc_5AiH_0_V2ETggPR-42">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="dqSc_5AiH_0_V2ETggPR-17" value="Service" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="190" y="340" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="dqSc_5AiH_0_V2ETggPR-58" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="dqSc_5AiH_0_V2ETggPR-20" target="dqSc_5AiH_0_V2ETggPR-21">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="dqSc_5AiH_0_V2ETggPR-20" value="Specific Views" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;" vertex="1" parent="1">
+          <mxGeometry x="780" y="400" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="dqSc_5AiH_0_V2ETggPR-59" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="dqSc_5AiH_0_V2ETggPR-21" target="dqSc_5AiH_0_V2ETggPR-16">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="dqSc_5AiH_0_V2ETggPR-21" value="SQL Audit Log" style="shape=card;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="800" y="600" width="80" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="dqSc_5AiH_0_V2ETggPR-45" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="dqSc_5AiH_0_V2ETggPR-28" target="dqSc_5AiH_0_V2ETggPR-42">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="dqSc_5AiH_0_V2ETggPR-46" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="dqSc_5AiH_0_V2ETggPR-28" target="dqSc_5AiH_0_V2ETggPR-41">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="dqSc_5AiH_0_V2ETggPR-51" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="dqSc_5AiH_0_V2ETggPR-28" target="dqSc_5AiH_0_V2ETggPR-16">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="670" y="550" />
+              <mxPoint x="404" y="550" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="dqSc_5AiH_0_V2ETggPR-28" value="OData API" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="610" y="400" width="120" height="58" as="geometry" />
+        </mxCell>
+        <mxCell id="dqSc_5AiH_0_V2ETggPR-61" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="dqSc_5AiH_0_V2ETggPR-36" target="dqSc_5AiH_0_V2ETggPR-16">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="250" y="650" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="dqSc_5AiH_0_V2ETggPR-36" value="Audit" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;" vertex="1" parent="1">
+          <mxGeometry x="235" y="540" width="30" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="dqSc_5AiH_0_V2ETggPR-41" value="Policy Agent" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="369" y="340" width="100" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="dqSc_5AiH_0_V2ETggPR-42" value="Log agent" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="369" y="450" width="100" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="dqSc_5AiH_0_V2ETggPR-55" value="No" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="dqSc_5AiH_0_V2ETggPR-52" target="dqSc_5AiH_0_V2ETggPR-28">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="dqSc_5AiH_0_V2ETggPR-57" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="dqSc_5AiH_0_V2ETggPR-52" target="dqSc_5AiH_0_V2ETggPR-20">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="dqSc_5AiH_0_V2ETggPR-60" value="Yes" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="dqSc_5AiH_0_V2ETggPR-57">
+          <mxGeometry x="0.3148" y="3" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="dqSc_5AiH_0_V2ETggPR-52" value="Can you get special access?" style="rhombus;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="620" y="165" width="100" height="90" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
