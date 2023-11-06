@@ -1,18 +1,3 @@
-# Enable VNET
-
-_You need to know the subnet name for this step_
-
-```powershell
-# Production slot
-az webapp vnet-integration add -g RESOURCEGROUPNAME -n APPSERVICE --vnet VNETNAME --subnet SUBNETNAME
-
-# Test slot (Optional)
-az webapp vnet-integration add -g RESOURCEGROUPNAME -n APPSERVICE --vnet VNETNAME --subnet SUBNETNAME -s test
-
-# Dev slot (Optional)
-az webapp vnet-integration add -g RESOURCEGROUPNAME -n APPSERVICE --vnet VNETNAME --subnet SUBNETNAME -s dev
-```
-
 # Private Endpoints
 
 This will tell you how to setup the Private Endpoints on your Web or Function app in the Azure Portal.
